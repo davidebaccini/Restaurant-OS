@@ -9,7 +9,11 @@
 int get_prio(order* o, int algorithm) {
     switch (algorithm) {
         case 0:  /* Slack time — most urgent first */
+            /*
+            Previous formula for the priority:
             return o->c->patience - atomic_load(&o->remaining_time);
+            */
+            return (int) (1 / o->c->patience);
         case 1:  /* SJF — shortest job first */
             return atomic_load(&o->remaining_time);
         case 2:  /* Unsorted — append to tail, prio irrelevant */
